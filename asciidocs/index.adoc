@@ -1,4 +1,4 @@
-= Quarkus Reactive Demo
+= Reaktives Programmieren in Quarkus
 Eichhorn, Wallinger
 1.0.0, 2021-12-04
 ifndef::imagesdir[:imagesdir: images]
@@ -14,4 +14,5 @@ ifdef::backend-html5[]
 // print the toc here (not at the default position)
 //toc::[]
 
-== Introduction
+== Einführung
+Die reaktive Programmierung ist ein Programmierparadigma (= Programmierstil), welches auf **asynchronen** Datenströmen (Streams) basiert und es ermöglicht, Änderungen in der Ausführungsumgebung (Kontext) in einer bestimmten Reihenfolge zu propagieren. ("propagation of change")
