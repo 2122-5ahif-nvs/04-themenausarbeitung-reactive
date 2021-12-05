@@ -7,6 +7,7 @@ ifndef::imagesdir[:imagesdir: images]
 :icons: font
 :sectnums:    // Nummerierung der Überschriften / section numbering
 :toc: left
+:toclevels: 3
 
 //Need this blank line after ifdef, don't know why...
 ifdef::backend-html5[]
