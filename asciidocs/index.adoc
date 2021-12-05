@@ -253,12 +253,13 @@ public void testStreamAll() {
     var departments = departmentRepository
         .streamAll()
         .subscribe()
-        .asIterable();
+        .asIterable(); // <1>
 
     List<Long> ids = List.of(10L, 20L, 30L, 40L);
-    
+
     for(Department d : departments) {
         assertTrue(ids.contains(d.getId()));
     }
 }
 ----
+<1> `.asIterable()`: Blockiert und wartet auf alle Ergebnisse - wird von uns verwendet, damit wir zum Schluss mittels einer Liste überprüfen können, ob wirklich alle Departments vorhanden sind
