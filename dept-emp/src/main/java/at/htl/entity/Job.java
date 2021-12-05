@@ -3,9 +3,13 @@ package at.htl.entity;
 import javax.persistence.*;
 
 @Entity
-public class Job {
+public class Job  {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(
+            name = "jobSequence",
+            sequenceName = "job_id_seq",
+            initialValue = 10)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "jobSequence")
     private Long id;
 
     @Column(name = "JOB_TITLE")

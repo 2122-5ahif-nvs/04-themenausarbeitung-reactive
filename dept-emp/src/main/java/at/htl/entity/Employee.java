@@ -1,6 +1,5 @@
 package at.htl.entity;
 
-import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
 import java.time.LocalDate;
 
@@ -9,9 +8,9 @@ public class Employee {
     @Id
     @SequenceGenerator(
             name = "employeeSequence",
-            sequenceName = "department_id_seq",
-            initialValue = 60)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "departmentSequence")
+            sequenceName = "employee_id_seq",
+            initialValue = 8000)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "employeeSequence")
     private Long id;
     private String name;
 
@@ -21,7 +20,6 @@ public class Employee {
     private Job job;
 
     @ManyToOne
-    @JsonbTransient
     private Employee manager;
 
     @Column(name = "hire_date")
