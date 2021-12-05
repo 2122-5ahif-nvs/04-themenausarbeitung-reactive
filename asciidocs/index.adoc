@@ -38,3 +38,57 @@ Durch die direkte Nutzung der I/O-Threads kann RAM und CPU gespart werden, weil 
 Das sorgt nicht nur für eine kürzere Antwortzeit, sondern hebt auch die Limiterung durch die Threadanzahl auf. Trotz allem ist Reaktivität nicht der heilige Gral: Vor der Verwendung sollte man sich gut überlegen, ob es überhaupt sinnvoll ist, beim eigenen Projekt reaktiv zu programmieren.
 
 image::reactive.png[]
+
+== Implementierung in Quarkus
+
+=== Mutiny und vert.x
+
+Im Grunde ist Mutiny eine Art Wrapper für vert.x: Quarkus verwendet lt. smallrye-Doku für alle Reactive-APIs Mutiny.
+
+[quote, smallrye]
+----
+Mutiny is integrated in Quarkus where every reactive API uses Mutiny, and Eclipse Vert.x clients are made available using Mutiny bindings. Mutiny is however an independent library that can ultimately be used in any Java application.
+----
+
+Mit der `quarkus-vertx`-Erweiterung kann im Bedarfsfall entweder auf die Mutiny-API *oder* auf die reine vert.x-API zugegriffen werden:
+
+[source,java]
+----
+// Mutiny-API
+@Inject io.vertx.mutiny.core.Vertx vertx
+----
+
+[source,java]
+----
+// vert.x-API ("Bare")
+@Inject io.vertx.core.Vertx vertx
+----
+
+Mutiny erleichtert die Entwicklung reaktiver Software durch die Möglichkeit von Fluent-API-Nutzung. Außerdem werden keine Callbacks sondern die `Uni`- und `Multi`-Datentypen.
+
+=== Codevergleich
+
+==== vert.x
+
+[source,java]
+----
+vertx.fileSystem()
+    .readFile("my-file.txt", ar -> {
+        if (ar.failed()) {
+            System.out.println("D'oh! Cannot read the file: " + ar.cause());
+        } else {
+            System.out.println("File content is: " + ar.result());
+        }
+    });
+----
+
+==== Mutiny
+
+[source,java]
+----
+Uni<Buffer> uni = vertx.fileSystem().readFile("my-file.txt");
+uni.subscribe()
+  .with(it -> System.out.println("File content is: " + it));
+----
+
+IMPORTANT: Die vert.x-API führt Operationen sofort mit Aufruf der entsprechenden Methode(n) auf. Mutiny erwartet zuerst einen Subscriber!
