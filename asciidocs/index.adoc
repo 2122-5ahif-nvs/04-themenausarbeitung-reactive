@@ -65,7 +65,7 @@ Mit der `quarkus-vertx`-Erweiterung kann im Bedarfsfall entweder auf die Mutiny-
 @Inject io.vertx.core.Vertx vertx
 ----
 
-Mutiny erleichtert die Entwicklung reaktiver Software durch die Möglichkeit von Fluent-API-Nutzung. Außerdem werden keine Callbacks sondern die `Uni`- und `Multi`-Datentypen.
+Mutiny erleichtert die Entwicklung reaktiver Software durch die Möglichkeit von Fluent-API-Nutzung. Außerdem werden keine Callbacks sondern die `Uni`- und `Multi`-Datentypen verwendet.
 
 === Codevergleich
 
