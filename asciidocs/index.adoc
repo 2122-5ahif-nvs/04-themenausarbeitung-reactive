@@ -91,4 +91,4 @@ uni.subscribe()
   .with(it -> System.out.println("File content is: " + it));
 ----
 
-IMPORTANT: Die vert.x-API führt Operationen sofort mit Aufruf der entsprechenden Methode(n) auf. Mutiny erwartet zuerst einen Subscriber!
+IMPORTANT: Die vert.x-API führt Operationen sofort mit Aufruf der entsprechenden Methode(n) aus. Mutiny erwartet zuerst einen Subscriber!
