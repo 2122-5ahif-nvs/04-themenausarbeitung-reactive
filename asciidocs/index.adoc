@@ -216,3 +216,49 @@ public Uni<Response> updateEmployee(Employee employee) {
 ----
 
 Hier ist ebenfalls ersichtlich, dass die gewünschte Antwort zum Schluss mittels `.transform()` erstellt werden kann.
+
+=== Tests
+
+NOTE: Link zum Testverzeichnis: https://github.com/MoritzEichhorn/quarkus-reactive-demo/tree/master/dept-emp/src/test/java/at/htl/deptemp[dept-emp/src/test/java/at/htl/deptemp]
+
+==== Multi manuell erstellen & testen
+
+[source,java]
+----
+@Test
+public void testMulti() {
+    Multi<Integer> multi = Multi.createFrom() // <1>
+        .range(1, 5)
+        .onItem()
+        .transform(n -> n * 10);
+
+    AssertSubscriber<Integer> subscriber = multi.subscribe().withSubscriber(AssertSubscriber.create(10));
+
+    subscriber.assertCompleted() 
+        .assertItems(10, 20, 30, 40); // <2>
+}
+----
+<1> Auch möglich: Manuell einen `Multi` erstellen und mit Werten befüllen
+<2> Zum Schluss wird überprüft, ob alle Items vorhanden und richtig transformiert worden sind
+
+==== DepartmentRepository-Test
+
+[source,java]
+----
+@Inject
+DepartmentRepository departmentRepository;
+
+@Test
+public void testStreamAll() {
+    var departments = departmentRepository
+        .streamAll()
+        .subscribe()
+        .asIterable();
+
+    List<Long> ids = List.of(10L, 20L, 30L, 40L);
+    
+    for(Department d : departments) {
+        assertTrue(ids.contains(d.getId()));
+    }
+}
+----
