@@ -6,6 +6,12 @@ If you want to learn more about Quarkus, please visit its website: https://quark
 
 ## Running the application in dev mode
 
+Before you run the application you have to start
+a postgreSQL database. To do so just run:
+```shell script
+docker-compose up -d
+```
+
 You can run your application in dev mode that enables live coding using:
 
 ```shell script
