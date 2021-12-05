@@ -15,4 +15,22 @@ ifdef::backend-html5[]
 //toc::[]
 
 == Einführung
-Die reaktive Programmierung ist ein Programmierparadigma (= Programmierstil), welches auf **asynchronen** Datenströmen (Streams) basiert und es ermöglicht, Änderungen in der Ausführungsumgebung (Kontext) in einer bestimmten Reihenfolge zu propagieren. ("propagation of change")
+Die reaktive Programmierung ist ein Programmierparadigma (= Programmierstil), welches auf **asynchronen** Datenströmen (Streams) basiert.  
+Wichtig ist dies vor allem für "Live"-Daten/Streams, bei denen die Anzahl an hereinströmenden Daten nicht vorher bekannt ist: Hier muss besonders darauf geachtet werden, dass diese Menge an Daten das Streamziel nicht überwältigt. Um die parallele Verwendung von (Hardware-)Resourcen zu ermöglichen, zum Beispiel die Verwendung mehrerer Prozessorkerne, wird Asynchronität benotwendigt.
+
+== Unterscheidung
+
+=== Imperativ
+In der traditionellen Herangehensweise weisen Frameworks je Request einen Thread zu. Jegliche Verarbeitung dieses Requests läuft also dementsprechend auch in diesem Arbeitsthread - nachteilig ist dies vor allem in Hinsicht auf die Skalierbarkeit: Um mehrere, gleichzeitige Requests zu verarbeiten werden bei dieser Vorgehensweise auch mehrere Threads benötigt. Das bedeutet, dass die gleichzeitige Ausführung in der Anwendung durch die Anzahl an Threads limitiert wird.
+
+==== Resourcenverschwendung
+Zusätzlich blocken (verhindern die weitere Ausführung) einzelne Threads, wenn der Code mit Remote-Diensten (z.B. Datenbanken, I/O-Operationen, ...) interagiert.
+Dies führt zu ineffizienter Resourcennutzung am Hostsystem: Werden mehr Threads benötigt steigt damit auch die Auslastung des Prozessors und RAMs, da jeder Thread zusätzlich einem Thread auf Betriebssystemebene zugewiesen wird.
+
+=== Reaktiv
+Im Gegensatz zum imperativen Modell baut man bei der reaktiven Vorgehensweise auf nicht-blockierende I/O-Operationen und ein anderes Ausführungsmodell auf.
+Eine minimale Anzahl an Threads, genannt I/O-Threads, kann eine große Anzahl an gleichzeitigen Operationen durchführen. Beim reaktiven Modell gibt es keine eigenen Arbeitsthreads mehr: Request-Verarbeitung erfolgt direkt durch die vorher genannten I/O-Threads.
+
+==== Vorteile
+Durch die direkte Nutzung der I/O-Threads kann RAM und CPU gespart werden, weil das Erstellen neuer Arbeitsthreads zum Verarbeiten eingehender Requests weg fällt.
+Das sorgt nicht nur für eine kürzere Antwortzeit, sondern hebt auch die Limiterung durch die Threadanzahl auf. Trotz allem ist Reaktivität nicht der heilige Gral: Vor der Verwendung sollte man sich gut überlegen, ob es überhaupt sinnvoll ist, beim eigenen Projekt reaktiv zu programmieren.
