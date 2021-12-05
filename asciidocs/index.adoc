@@ -31,7 +31,7 @@ Dies führt zu ineffizienter Resourcennutzung am Hostsystem: Werden mehr Threads
 image::imperative.png[]
 
 === Reaktiv
-Im Gegensatz zum imperativen Modell baut man bei der reaktiven Vorgehensweise auf nicht-blockierende I/O-Operationen und ein anderes Ausführungsmodell auf.
+Im Gegensatz zum imperativen Modell baut man bei der reaktiven Vorgehensweise auf nicht-blockierende I/O-Threads und ein anderes Ausführungsmodell auf.
 Eine minimale Anzahl an Threads, genannt I/O-Threads, kann eine große Anzahl an gleichzeitigen Operationen durchführen. Beim reaktiven Modell gibt es keine eigenen Arbeitsthreads mehr: Request-Verarbeitung erfolgt direkt durch die vorher genannten I/O-Threads.
 
 ==== Vorteile
