@@ -49,7 +49,6 @@ public class EmployeeResource {
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    @Transactional
     public Uni<Response> updateEmployee(Employee employee) {
         return Panache.withTransaction(() -> employeeRepository.update(employee))
                 .onItem().ifNotNull().transform(entity -> Response.ok(employee).build());

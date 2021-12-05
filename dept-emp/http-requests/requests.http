@@ -3,7 +3,7 @@ Accept: application/json
 
 ###
 
-GET http://localhost:8080/api/employees/8000
+GET http://localhost:8080/api/employees/7839
 Accept: application/json
 
 ###
@@ -28,23 +28,34 @@ Content-Type: application/json
 
 ###
 
+GET http://localhost:8080/api/employees/8000
+Accept: application/json
+
+###
+
 PUT http://localhost:8080/api/employees/
 Content-Type: application/json
 
 {
   "id": 8000,
-"department": {
-"id": 10
-},
-"hireDate": "1981-11-17",
-"job": {
-"id": 2
-},
-"name": "Hube",
-"sal": 3500,
-"manager": {
-"id": 7839
-},
+  "department": {
+    "id": 10
+  },
+  "hireDate": "1981-11-17",
+  "job": {
+    "id": 2
+  },
+  "name": "Moritz",
+  "sal": 3600,
+  "manager": {
+    "id": 7839
+  },
   "commission": 100
 }
+
+###
+
+GET http://localhost:8080/api/employees/8000
+Accept: application/json
+
 
