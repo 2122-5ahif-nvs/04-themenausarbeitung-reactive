@@ -1,4 +1,4 @@
-package at.htl.entity;
+package at.htl.deptemp.entity;
 
 import javax.persistence.*;
 import java.time.LocalDate;

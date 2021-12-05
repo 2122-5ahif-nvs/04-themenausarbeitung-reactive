@@ -1,6 +1,6 @@
-package at.htl.control;
+package at.htl.deptemp.control;
 
-import at.htl.entity.Employee;
+import at.htl.deptemp.entity.Employee;
 import io.quarkus.hibernate.reactive.panache.PanacheRepository;
 import io.smallrye.mutiny.Uni;
 

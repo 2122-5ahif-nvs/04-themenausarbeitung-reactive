@@ -1,10 +1,9 @@
-package at.htl.control;
-
-import at.htl.entity.Department;
+package at.htl.deptemp.control;
+import at.htl.deptemp.entity.Job;
 import io.quarkus.hibernate.reactive.panache.PanacheRepository;
 
 import javax.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
-public class DepartmentRepository implements PanacheRepository<Department> {
+public class JobRepository implements PanacheRepository<Job> {
 }
