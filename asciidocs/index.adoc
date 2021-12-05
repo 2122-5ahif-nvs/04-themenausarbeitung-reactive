@@ -107,20 +107,45 @@ Das Quarkus-Projekt "Dept-Emp" soll die grundsätzliche Verwendung der Reactive-
 include::plantuml/cld.puml[]
 ----
 
-
-=== Unterschiede zu nicht-reaktiven Projekten
-
-==== Verwendete Extensions
+=== Verwendete Extensions
 
 * RESTEasy Reactive
 * RESTEasy Reactive JSON-B
 * Hibernate Reactive with Panache
 * Reactive PostgreSQL client
 
-==== `Uni` und `Multi`
+=== `Uni` und `Multi`
 
 Ein `Uni` bezeichnet einen Stream welcher entweder **einen einzigen** Wert oder einen Fehler zurück.
 
 Ein `Multi` hingegen gibt einen Stream welcher entweder **keinen, einen oder n** Werte/einen Fehler zurück gibt.
 
 Beide haben gemeinsam, dass man sie mittels `.subscribe()` abonnieren kann (und muss, da sonst nichts passiert).
+
+=== Code-Erklärung
+
+==== Einfaches `Multi`-Beispiel
+
+[source,java]
+----
+@GET
+@Produces(MediaType.APPLICATION_JSON)
+public Multi<Employee> getAllEmployees() {
+    return employeeRepository.streamAll();
+}
+----
+
+Auch hier ist wichtig, dass das `EmployeeRepository` das `PanacheRepository` reaktiv implementiert:
+
+[source,java]
+----
+package at.htl.control;
+
+import io.quarkus.hibernate.reactive.panache.PanacheRepository;
+
+// ...
+
+public class EmployeeRepository implements PanacheRepository<Employee> {
+    // ...
+}
+----
