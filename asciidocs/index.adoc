@@ -92,3 +92,27 @@ uni.subscribe()
 ----
 
 IMPORTANT: Die vert.x-API führt Operationen sofort mit Aufruf der entsprechenden Methode(n) aus. Mutiny erwartet zuerst einen Subscriber!
+
+=== Offizielle Tutorials
+
+* https://quarkus.io/guides/getting-started-reactive
+
+== Demoprojekt
+Das Quarkus-Projekt "Dept-Emp" soll die grundsätzliche Verwendung der Reactive-APIs mittels REST-Schnittstellen vorzeigen und erläutern.
+
+=== Unterschiede zu nicht-reaktiven Projekten
+
+==== Verwendete Extensions
+
+* RESTEasy Reactive
+* RESTEasy Reactive JSON-B
+* Hibernate Reactive with Panache
+* Reactive PostgreSQL client
+
+==== `Uni` und `Multi`
+
+Ein `Uni` bezeichnet einen Stream welcher entweder **einen einzigen** Wert oder einen Fehler zurück.
+
+Ein `Multi` hingegen gibt einen Stream welcher entweder **keinen, einen oder n** Werte/einen Fehler zurück gibt.
+
+Beide haben gemeinsam, dass man sie mittels `.subscribe()` abonnieren kann (und muss, da sonst nichts passiert).
