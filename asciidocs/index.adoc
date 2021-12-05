@@ -101,6 +101,8 @@ IMPORTANT: Die vert.x-API führt Operationen sofort mit Aufruf der entsprechende
 == Demoprojekt
 Das Quarkus-Projekt "Dept-Emp" soll die grundsätzliche Verwendung der Reactive-APIs mittels REST-Schnittstellen vorzeigen und erläutern.
 
+NOTE: Link zum Projekt: https://github.com/MoritzEichhorn/quarkus-reactive-demo/tree/master/dept-emp[MoritzEichhorn/quarkus-reactive-demo]
+
 === Klassendiagramm
 [plantuml, cld, png, align=left]
 ----
@@ -124,7 +126,15 @@ Beide haben gemeinsam, dass man sie mittels `.subscribe()` abonnieren kann (und 
 
 === Code-Erklärung
 
-==== Einfaches `Multi`-Beispiel
+Der Aufbau des Projekts ist im Prinzip wie bisher... Mit kleinen Unterschieden:
+
+* im `boundary`-Ordner befinden sich die Resources mit den API-Endpunkten
+* im `control`-Ordner befinden sich die Repositories, welche die reaktive Version von `PanacheRepository` implementieren
+* im `entity`-Ordner befinden sich - auch wie bei anderen Projekten - die Entitätsklassen
+
+==== `Multi`-Beispiel: Alle Mitarbeiter anzeigen
+
+Auszug aus der `EmployeeResource` - die Mitarbeiter müssen als Stream zurückgegeben werden:
 
 [source,java]
 ----
@@ -149,3 +159,25 @@ public class EmployeeRepository implements PanacheRepository<Employee> {
     // ...
 }
 ----
+
+==== `Uni`-Beispiel: Mitarbeiter hinzufügen
+
+[source,java]
+----
+@POST
+@Consumes(MediaType.APPLICATION_JSON)
+@Produces(MediaType.APPLICATION_JSON)
+public Uni<Response> addEmployee(Employee employee, @Context UriInfo info) {
+    return Panache.withTransaction(() -> employeeRepository.persist(employee))
+        .onItem() // <1>
+        .transform( // <2>
+            inserted -> Response
+            .created(info
+                .getAbsolutePathBuilder()
+                .path(Long.toString(inserted.getId())).build())
+            .build()
+    );
+}
+----
+<1> `.onItem()`: Sobald ein Wert erhalten wird, werden die Methoden danach aufgerufen (in unserem Fall: `transform()`)
+<2> `.transform()`: Entspricht im Prinzip der `map()`-Methode wie in Java Streams
