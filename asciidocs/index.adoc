@@ -103,6 +103,8 @@ Das Quarkus-Projekt "Dept-Emp" soll die grundsätzliche Verwendung der Reactive-
 
 NOTE: Link zum Projekt: https://github.com/MoritzEichhorn/quarkus-reactive-demo/tree/master/dept-emp[MoritzEichhorn/quarkus-reactive-demo]
 
+Im `http-requests`-Ordner im Projekt-Stammverzeichnis befinden sich in der https://github.com/MoritzEichhorn/quarkus-reactive-demo/blob/master/dept-emp/http-requests/requests.http[requests.http-Datei] Beispiele für API-Requests des Projekts.
+
 === Klassendiagramm
 [plantuml, cld, png, align=left]
 ----
@@ -146,7 +148,7 @@ Der Aufbau des Projekts ist im Prinzip wie bisher... Mit kleinen Unterschieden:
 
 * im `boundary`-Ordner befinden sich die Resources mit den API-Endpunkten
 * im `control`-Ordner befinden sich die Repositories, welche die reaktive Version von `PanacheRepository` implementieren
-* im `entity`-Ordner befinden sich - auch wie bei anderen Projekten - die Entitätsklassen
+* im `entity`-Ordner befinden sich die Entitätsklassen, die wie bei vorherigen Projekten von uns aufgebaut sind
 
 ==== `Multi`-Beispiel: Alle Mitarbeiter anzeigen
 
@@ -197,3 +199,20 @@ public Uni<Response> addEmployee(Employee employee, @Context UriInfo info) {
 ----
 <1> `.onItem()`: Sobald ein Wert erhalten wird, werden die Methoden danach aufgerufen (in unserem Fall: `transform()`)
 <2> `.transform()`: Entspricht im Prinzip der `map()`-Methode wie in Java Streams
+
+==== `Uni`-Beispiel: Mitarbeiter aktualisieren
+
+[source,java]
+----
+@PUT
+@Consumes(MediaType.APPLICATION_JSON)
+@Produces(MediaType.APPLICATION_JSON)
+public Uni<Response> updateEmployee(Employee employee) {
+    return Panache.withTransaction(() -> employeeRepository.update(employee))
+            .onItem()
+            .ifNotNull()
+            .transform(entity -> Response.ok(employee).build());
+}
+----
+
+Hier ist ebenfalls ersichtlich, dass die gewünschte Antwort zum Schluss mittels `.transform()` erstellt werden kann.
