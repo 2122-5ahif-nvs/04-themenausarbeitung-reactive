@@ -46,10 +46,10 @@ image::reactive.png[]
 
 Im Grunde ist Mutiny eine Art Wrapper für vert.x: Quarkus verwendet lt. smallrye-Doku für alle Reactive-APIs Mutiny.
 
-[quote, smallrye]
-----
+[quote]
+____
 Mutiny is integrated in Quarkus where every reactive API uses Mutiny, and Eclipse Vert.x clients are made available using Mutiny bindings. Mutiny is however an independent library that can ultimately be used in any Java application.
-----
+____
 
 Mit der `quarkus-vertx`-Erweiterung kann im Bedarfsfall entweder auf die Mutiny-API *oder* auf die reine vert.x-API zugegriffen werden:
 
