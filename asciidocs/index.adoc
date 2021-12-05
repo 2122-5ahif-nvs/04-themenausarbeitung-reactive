@@ -27,6 +27,8 @@ In der traditionellen Herangehensweise weisen Frameworks je Request einen Thread
 Zusätzlich blocken (verhindern die weitere Ausführung) einzelne Threads, wenn der Code mit Remote-Diensten (z.B. Datenbanken, I/O-Operationen, ...) interagiert.
 Dies führt zu ineffizienter Resourcennutzung am Hostsystem: Werden mehr Threads benötigt steigt damit auch die Auslastung des Prozessors und RAMs, da jeder Thread zusätzlich einem Thread auf Betriebssystemebene zugewiesen wird.
 
+image::imperative.png[]
+
 === Reaktiv
 Im Gegensatz zum imperativen Modell baut man bei der reaktiven Vorgehensweise auf nicht-blockierende I/O-Operationen und ein anderes Ausführungsmodell auf.
 Eine minimale Anzahl an Threads, genannt I/O-Threads, kann eine große Anzahl an gleichzeitigen Operationen durchführen. Beim reaktiven Modell gibt es keine eigenen Arbeitsthreads mehr: Request-Verarbeitung erfolgt direkt durch die vorher genannten I/O-Threads.
@@ -34,3 +36,5 @@ Eine minimale Anzahl an Threads, genannt I/O-Threads, kann eine große Anzahl an
 ==== Vorteile
 Durch die direkte Nutzung der I/O-Threads kann RAM und CPU gespart werden, weil das Erstellen neuer Arbeitsthreads zum Verarbeiten eingehender Requests weg fällt.
 Das sorgt nicht nur für eine kürzere Antwortzeit, sondern hebt auch die Limiterung durch die Threadanzahl auf. Trotz allem ist Reaktivität nicht der heilige Gral: Vor der Verwendung sollte man sich gut überlegen, ob es überhaupt sinnvoll ist, beim eigenen Projekt reaktiv zu programmieren.
+
+image::reactive.png[]
