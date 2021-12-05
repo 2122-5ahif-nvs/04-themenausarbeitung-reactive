@@ -116,6 +116,22 @@ include::plantuml/cld.puml[]
 * Hibernate Reactive with Panache
 * Reactive PostgreSQL client
 
+=== Quarkus-Konfiguration (`application.properties`)
+
+[source]
+----
+quarkus.datasource.db-kind=postgresql
+quarkus.datasource.username=app
+quarkus.datasource.password=app
+quarkus.datasource.reactive.url=postgresql://localhost:5432/db // <1>
+
+quarkus.datasource.devservices.enabled=false
+quarkus.hibernate-orm.database.generation=drop-and-create
+
+quarkus.http.root-path=/api
+----
+<1> **Wichtig:** Anstelle von `quarkus.datasource.jdbc.url` muss hier das reaktive Gegenstück verwendet werden.
+
 === `Uni` und `Multi`
 
 Ein `Uni` bezeichnet einen Stream welcher entweder **einen einzigen** Wert oder einen Fehler zurück.
