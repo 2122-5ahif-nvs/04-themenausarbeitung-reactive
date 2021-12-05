@@ -1,0 +1,29 @@
+@startuml
+left to right direction
+
+class Employee {
+    id: Long
+    name: String
+    department: Department
+    job: Job
+    manager: Employee
+}
+
+class Department {
+   id: Long
+   name: String
+   location: String
+}
+
+class Job {
+    id: Long
+    jobTitle: String
+    jobDescription: String
+}
+
+
+Job <-- Employee
+Employee --> Department
+Employee --> Employee
+
+@enduml
