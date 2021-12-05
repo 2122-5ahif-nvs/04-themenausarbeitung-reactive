@@ -1,5 +1,6 @@
 package at.htl.entity;
 
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
 import java.time.LocalDate;
 
@@ -20,12 +21,14 @@ public class Employee {
     private Job job;
 
     @ManyToOne
+    @JsonbTransient
     private Employee manager;
 
     @Column(name = "hire_date")
     private LocalDate hireDate;
     private int sal;
-    private int commission;
+    @Column(nullable = true)
+    private Integer commission;
 
     public Employee() {
     }
@@ -96,11 +99,11 @@ public class Employee {
         this.sal = sal;
     }
 
-    public int getCommission() {
+    public Integer getCommission() {
         return commission;
     }
 
-    public void setCommission(int commission) {
+    public void setCommission(Integer commission) {
         this.commission = commission;
     }
 
