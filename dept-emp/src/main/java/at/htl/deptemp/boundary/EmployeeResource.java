@@ -1,7 +1,7 @@
-package at.htl.boundary;
+package at.htl.deptemp.boundary;
 
-import at.htl.control.EmployeeRepository;
-import at.htl.entity.Employee;
+import at.htl.deptemp.control.EmployeeRepository;
+import at.htl.deptemp.entity.Employee;
 import io.quarkus.hibernate.reactive.panache.Panache;
 import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.Uni;
@@ -37,7 +37,7 @@ public class EmployeeResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Uni<Response> addEmployee(Employee employee, @Context UriInfo info) {
-        return Panache.<Employee>withTransaction(() -> employeeRepository.persist(employee))
+        return Panache.withTransaction(() -> employeeRepository.persist(employee))
                 .onItem()
                 .transform(inserted -> Response
                         .created(info
