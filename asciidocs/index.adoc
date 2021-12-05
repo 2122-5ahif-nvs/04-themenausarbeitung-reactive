@@ -101,6 +101,13 @@ IMPORTANT: Die vert.x-API führt Operationen sofort mit Aufruf der entsprechende
 == Demoprojekt
 Das Quarkus-Projekt "Dept-Emp" soll die grundsätzliche Verwendung der Reactive-APIs mittels REST-Schnittstellen vorzeigen und erläutern.
 
+=== Klassendiagramm
+[plantuml, cld, png, align=left]
+----
+include::plantuml/cld.puml[]
+----
+
+
 === Unterschiede zu nicht-reaktiven Projekten
 
 ==== Verwendete Extensions
